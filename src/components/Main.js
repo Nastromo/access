@@ -7,14 +7,14 @@ export class Main extends Component {
     render() {
         return (
             <div>
-
+                Entry
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-
+    
 })
 
 const mapDispatchToProps = {

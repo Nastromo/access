@@ -14,10 +14,10 @@ export class Navigation extends Component {
 
     componentDidMount() {
         switch (this.props.location.pathname) {
-            case `/account/option1`:
+            case `/account/main`:
                 this.setActive(this.pending);
                 break;
-            case `/account/option2`:
+            case `/account/labels`:
                 this.setActive(this.processing);
                 break;
             default: break;
@@ -37,15 +37,7 @@ export class Navigation extends Component {
     }
 
     handleExit = () => {
-        this.props.history.push(`/option1`);
-    }
-
-    handleSettings = () => {
-        this.props.history.push(`/option2`);
-    }
-
-    hideSideMenu = () => {
-        this.props.showMenu(false);
+        this.props.history.push(`/`);
     }
 
     render() {
@@ -59,12 +51,12 @@ export class Navigation extends Component {
                             onClick={this.handleClick}
                             innerRef={el => this.pending = el}
                             className="menu-active"
-                            to="/account/option1">Title 1</Link>
+                            to="/account/main">Entry</Link>
                         <Link
                             id="option2"
                             onClick={this.handleClick}
                             innerRef={el => this.processing = el}
-                            to="/account/option2">Title 2</Link>
+                            to="/account/labels">Labels</Link>
                     </div>
 
                     <div className="work-info">
