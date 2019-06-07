@@ -1889,3 +1889,41 @@ p.logo-text:hover {
 #deleteIns button {
     background: #ccc;
 }
+
+.padd15 {
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #dadada;
+    margin: 15px;
+}
+
+.cli-det {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.widee {
+    width: 360px;
+}
+
+.fl-sta {
+    justify-content: flex-start;
+}
+
+.fl-date {
+    display: flex;
+}
+
+.sma {
+    width: 150px;
+}
+
+#fir-da {
+    margin: 0 5px 0 0;
+}
+
+#fir-diag {
+    margin: 0 10px 0 0;
+}
