@@ -1927,3 +1927,23 @@ p.logo-text:hover {
 #fir-diag {
     margin: 0 10px 0 0;
 }
+
+.top-ma {
+    margin: 35px 0 0 0;
+}
+
+.long-input {
+    height: 37px;
+    width: 505px;
+    border-radius: 4px;
+    border: 1px solid #dadada;
+    padding: 0 15px 0;
+}
+
+.or-set {
+    width: 505px;
+}
+
+.mar-to {
+    margin: 15px 0 0 0;
+}
