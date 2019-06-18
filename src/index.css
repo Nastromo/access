@@ -1947,3 +1947,144 @@ p.logo-text:hover {
 .mar-to {
     margin: 15px 0 0 0;
 }
+
+.fle-ceb {
+    display: flex;
+    justify-content: center;
+    margin: 25px 0;
+}
+
+.white-bor {
+    width: 750px;
+    border: 1px solid #dadada;
+    padding: 15px;
+    background: #fff;
+}
+
+.acc-tit {
+    font-weight: 700;
+    font-size: 0.84rem;
+}
+
+.lit-input {
+    height: 32px;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #dadada;
+    padding: 0 15px 0;
+    margin: 0 10px 0 0;
+}
+
+.lit-input-sm {
+    height: 32px;
+    width: 180px;
+    border-radius: 4px;
+    border: 1px solid #dadada;
+    padding: 0 15px 0;
+    margin: 0 10px 0 0;
+}
+
+.mar-g-g {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.grn-btn-new {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #12a588;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8rem;
+    height: 32px;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 0 15px;
+    margin: 0 6px 0 0;
+}
+.grn-btn-new:active {
+    background: #0f9278;
+}
+
+.clear-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e6e6e6;
+    color: #000;
+    font-weight: 700;
+    font-size: 0.8rem;
+    height: 32px;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 0 15px;
+}
+
+.clear-btn:active {
+    background: #d4d4d4;
+}
+
+.fle-tab-bar {
+    margin: 20px 0 0 0;
+    display: flex;
+    align-items: center;
+    background: rgb(235, 235, 235);
+    height: 25px;
+    padding: 0 15px;
+}
+
+.fle-item-lab{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+.red-btn-new {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fa7641;
+    color: #772200;
+    font-weight: 700;
+    font-size: 0.8rem;
+    height: 32px;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 0 15px;
+}
+
+.red-btn-new:active {
+    background: #f16d39;
+}
+
+.lab-it {
+    display: flex;
+    padding: 0 15px;
+    align-items: center;
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+.barr {
+    width: 150px;
+}
+
+.specc {
+    width: 150px;
+}
+
+.ttype {
+    width: 150px;
+}
+
+.quntyyt {
+    width: 170px;
+}
