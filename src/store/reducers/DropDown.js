@@ -37,6 +37,11 @@ export const dropdownStatus = (state = {}, action) => {
                 newState = JSON.parse(JSON.stringify(state));
                 newState.numbers = action.obj.status;
                 return newState;
+            case `billStates`:
+                newState = JSON.parse(JSON.stringify(state));
+                newState.billStates = action.obj.status;
+                return newState;
+
 
             default: return state;
         }
@@ -90,6 +95,10 @@ export const dropdownOption = (state = {}, action) => {
             case `numbers`:
                 newState = JSON.parse(JSON.stringify(state));
                 newState.numbers = action.obj.option;
+                return newState;
+            case `billStates`:
+                newState = JSON.parse(JSON.stringify(state));
+                newState.billStates = action.obj.option;
                 return newState;
 
             default: return newState;

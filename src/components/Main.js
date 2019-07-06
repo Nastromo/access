@@ -17,6 +17,43 @@ export class Main extends Component {
         this.numbers = [2, 3, 4, 5, 6, 10, 12];
     }
 
+    returnBillTo = (option) => {
+        switch (option) {
+            case `Insurance`:
+                return (
+                    <div className="widzs">
+                        <p className="tit-ins">Insurances</p>
+                        <input className="simple-input wi100pre" type="text" />
+                        <div className="fle-gre-d">
+                            <p className="tit-ins">Code</p>
+                            <p className="tit-ins">Name</p>
+                            <p className="tit-ins">Rol 2 Ins</p>
+                            <p className="tit-ins">Policy</p>
+                            <p className="tit-ins">Primary</p>
+                        </div>
+                    </div>
+                );
+
+            case `Patient`:
+                return (
+                    <div className="widzs">
+                        <p className="tit-ins">Billing Streets</p>
+                        <input className="simple-input wi100pre" type="text" />
+                        <p className="tit-ins">Billing City/State/Zip</p>
+                        <div className="flell">
+                            <input className="simple-input wi100pre" type="text" />
+                            <DropDown
+                                option={this.props.billStates}
+                                status={this.props.isBilLStatesOpen}
+                                menu={this.states}
+                                id="billStates" />
+                            <input className="simple-input wi100pre" type="text" />
+                        </div>
+                    </div>
+                )
+            default: break;
+        }
+    }
 
     render() {
         return (
@@ -175,23 +212,20 @@ export class Main extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="or-set">
-                                    <p className="tit-ins">Additional Information</p>
-                                    <textarea
-                                        className="gross-other"
-                                        value={this.props.comment}
-                                        onChange={this.handleChange}
-                                    ></textarea>
+                                    <div className="or-set">
+                                        <p className="tit-ins">Additional Information</p>
+                                        <textarea
+                                            className="gross-other"
+                                            value={this.props.comment}
+                                            onChange={this.handleChange}
+                                        ></textarea>
 
-                                    <p className="tit-ins mar-to">WARNINGS</p>
-                                    <p className="tit-ins mar-to">No any warnings...</p>
+                                        <p className="tit-ins mar-to">WARNINGS</p>
+                                        <p className="tit-ins mar-to">No any warnings...</p>
+                                    </div>
                                 </div>
+                                {this.returnBillTo(this.props.bills)}
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -203,9 +237,8 @@ export class Main extends Component {
                             menu={this.numbers}
                             id="numbers" />
                     </div>
-                    <button className="create-b">
-                        Create
-                    </button>
+                    <input className="simple-input wi50re" type="text" placeholder="0" />
+                    <button className="create-b">Create</button>
                 </div>
             </div>
         )
@@ -229,7 +262,9 @@ const mapStateToProps = (state) => ({
     isSexOpen: state.dropdownStatus.sex,
     numbers: state.dropdownOption.numbers,
     isNumbOpen: state.dropdownStatus.numbers,
-
+    billStates: state.dropdownOption.billStates,
+    isBilLStatesOpen: state.dropdownStatus.billStates,
+    
 })
 
 const mapDispatchToProps = {
