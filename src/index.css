@@ -2142,6 +2142,7 @@ p.logo-text:hover {
 .derio {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 }
 
 .wi150px {
