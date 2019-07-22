@@ -112,6 +112,35 @@ export const setAcc = (obj) => ({
     obj
 });
 
+export const delDiag = (index) => ({
+    type: 'DEL_DIAG',
+    index
+});
+
+export const addDiag = (text) => ({
+    type: 'ADD_DIAG',
+    text
+});
+
+export const delSpec = (index) => ({
+    type: 'DEL_SPEC',
+    index
+});
+
+export const addSpec = (text) => ({
+    type: 'ADD_SPEC',
+    text
+});
+
+export const delSet = (index) => ({
+    type: 'DEL_SET',
+    index
+});
+
+export const addSet = (text) => ({
+    type: 'ADD_SET',
+    text
+});
 
 export const createAccession = () => {
     return async (dispatch, getState) => {

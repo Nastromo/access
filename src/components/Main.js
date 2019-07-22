@@ -24,7 +24,14 @@ import {
     handleAddInfo,
     changeEon,
     createAccession,
+    delDiag,
+    addDiag,
+    delSpec,
+    addSpec,
+    delSet,
+    addSet,
 } from '../store/actions/Acc';
+import SearchInput from './SearchInput';
 
 
 
@@ -79,6 +86,54 @@ export class Main extends Component {
                 )
             default: break;
         }
+    }
+
+    delDiag = (e) => {
+        this.props.delDiag(Number(e.target.id));
+    }
+
+    returnDiags = () => {
+        const list = JSON.parse(this.props.acc.diagnoses ? this.props.acc.diagnoses : "[]");
+        return list.map((item, i) => {
+            return (
+                <div key={i} className="flex">
+                    <div className="item-row">{item}</div>
+                    <div onClick={this.delDiag} id={i} className="delete-sml"></div>
+                </div>
+            )
+        });
+    }
+
+    delSpec = (e) => {
+        this.props.delSpec(Number(e.target.id));
+    }
+
+    returnSpecs = () => {
+        const list = JSON.parse(this.props.acc.specimens ? this.props.acc.specimens : "[]");
+        return list.map((item, i) => {
+            return (
+                <div key={i} className="flex">
+                    <div className="item-row">{item}</div>
+                    <div onClick={this.delSpec} id={i} className="delete-sml"></div>
+                </div>
+            )
+        });
+    }
+
+    delSet = (e) => {
+        this.props.delSet(Number(e.target.id));
+    }
+
+    returnSets = () => {
+        const list = JSON.parse(this.props.acc.orderSets ? this.props.acc.orderSets : "[]");
+        return list.map((item, i) => {
+            return (
+                <div key={i} className="flex">
+                    <div className="item-row">{item}</div>
+                    <div onClick={this.delSet} id={i} className="delete-sml"></div>
+                </div>
+            )
+        });
     }
 
     render() {
@@ -146,11 +201,33 @@ export class Main extends Component {
                         <div>
                             <div id="fir-diag">
                                 <p className="tit-ins">Diagnoses</p>
-                                <input className="simple-input widee" value={this.props.acc.diagnoses ? this.props.acc.diagnoses : ""} onChange={this.props.changeDiag} />
+                                <SearchInput
+                                    id="diagnoses"
+                                    type="text"
+                                    view="search-input"
+                                    url="diagnoses"
+                                    onItemClick={this.props.addDiag}
+                                    isLoading={this.props.isLoadDiag}
+                                    searchQuery={this.props.searchDiag}
+                                    searchResults={this.props.diagnoses} />
+                                <div className="over130px">
+                                    {this.returnDiags()}
+                                </div>
                             </div>
                             <div>
                                 <p className="tit-ins">Specimens</p>
-                                <input className="simple-input widee" value={this.props.acc.specimens ? this.props.acc.specimens : ""} onChange={this.props.changeSpec} />
+                                <SearchInput
+                                    id="specimens"
+                                    type="text"
+                                    view="search-input"
+                                    url="specimens"
+                                    onItemClick={this.props.addSpec}
+                                    isLoading={this.props.isLoadSpec}
+                                    searchQuery={this.props.searchSpec}
+                                    searchResults={this.props.specimens} />
+                                <div className="over130px">
+                                    {this.returnSpecs()}
+                                </div>
                             </div>
                         </div>
 
@@ -194,8 +271,21 @@ export class Main extends Component {
                                         <p className="tit-ins">Patient Chart #</p>
                                         <input className="simple-input wifol" value={this.props.acc.patientChart ? this.props.acc.patientChart : ""} onChange={this.props.changeChart} />
                                     </div>
-                                    <p className="tit-ins">Order Sets</p>
-                                    <input className="long-input wifol" value={this.props.acc.orderSets ? this.props.acc.orderSets : ""} onChange={this.props.changeSet} />
+                                    <div className="or405">
+                                        <p className="tit-ins">Order Sets</p>
+                                        <SearchInput
+                                            id="sets"
+                                            type="text"
+                                            view="search-input"
+                                            url="sets"
+                                            onItemClick={this.props.addSet}
+                                            isLoading={this.props.isLoadSet}
+                                            searchQuery={this.props.searchSet}
+                                            searchResults={this.props.sets} />
+                                        <div className="over130px">
+                                            {this.returnSets()}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div>
                                     <div>
@@ -292,6 +382,21 @@ const mapStateToProps = (state) => ({
     billStates: state.dropdownOption.billStates,
     isBilLStatesOpen: state.dropdownStatus.billStates,
     acc: state.acc,
+
+    isLoadDiag: state.searchLoading.diagnoses,
+    searchDiag: state.searchQuery.diagnoses,
+    diagnoses: state.searchResults.diagnoses,
+    diagList: state.diagList,
+
+    isLoadSpec: state.searchLoading.specimens,
+    searchSpec: state.searchQuery.specimens,
+    specimens: state.searchResults.specimens,
+    specList: state.specList,
+
+    isLoadSet: state.searchLoading.sets,
+    searchSet: state.searchQuery.sets,
+    sets: state.searchResults.sets,
+    setList: state.setList,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -317,6 +422,12 @@ const mapDispatchToProps = dispatch => ({
     handleAddInfo: (e) => dispatch(handleAddInfo(e)),
     changeEon: (e) => dispatch(changeEon(e)),
     createAccession: () => dispatch(createAccession()),
+    delDiag: (index) => dispatch(delDiag(index)),
+    addDiag: (text) => dispatch(addDiag(text)),
+    delSpec: (index) => dispatch(delSpec(index)),
+    addSpec: (text) => dispatch(addSpec(text)),
+    delSet: (index) => dispatch(delSet(index)),
+    addSet: (text) => dispatch(addSet(text)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)

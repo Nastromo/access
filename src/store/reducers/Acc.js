@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export const acc = (state = {}, action) => {
-    let newState;
+    let newState, diags;
     switch (action.type) {
         case `SET_ACC`:
             newState = action.obj;
@@ -110,6 +110,48 @@ export const acc = (state = {}, action) => {
         case `CHANGE_EON`:
             newState = JSON.parse(JSON.stringify(state));
             newState.eon = action.text;
+            return newState;
+
+        case `ADD_DIAG`:
+            newState = JSON.parse(JSON.stringify(state));
+            diags = JSON.parse(newState.diagnoses ? newState.diagnoses : "[]");
+            diags.push(action.text);
+            newState.diagnoses = JSON.stringify(diags);
+            return newState;
+
+        case `DEL_DIAG`:
+            newState = JSON.parse(JSON.stringify(state));
+            diags = JSON.parse(newState.diagnoses ? newState.diagnoses : "[]");
+            diags.splice(action.index, 1);
+            newState.diagnoses = JSON.stringify(diags);
+            return newState;
+
+        case `ADD_SPEC`:
+            newState = JSON.parse(JSON.stringify(state));
+            diags = JSON.parse(newState.specimens ? newState.specimens : "[]");
+            diags.push(action.text);
+            newState.specimens = JSON.stringify(diags);
+            return newState;
+
+        case `DEL_SPEC`:
+            newState = JSON.parse(JSON.stringify(state));
+            diags = JSON.parse(newState.specimens ? newState.specimens : "[]");
+            diags.splice(action.index, 1);
+            newState.specimens = JSON.stringify(diags);
+            return newState;
+
+        case `ADD_SET`:
+            newState = JSON.parse(JSON.stringify(state));
+            diags = JSON.parse(newState.orderSets ? newState.orderSets : "[]");
+            diags.push(action.text);
+            newState.orderSets = JSON.stringify(diags);
+            return newState;
+
+        case `DEL_SET`:
+            newState = JSON.parse(JSON.stringify(state));
+            diags = JSON.parse(newState.orderSets ? newState.orderSets : "[]");
+            diags.splice(action.index, 1);
+            newState.orderSets = JSON.stringify(diags);
             return newState;
 
         case `SET_DROP_DOWN_OPTION_ACC`:
