@@ -2259,3 +2259,33 @@ p.logo-text:hover {
 .or405 {
     width: 405px;
 }
+
+.sm37-f {
+    width: 70px;
+    height: 37px;
+    border: 1px solid #dadada;
+    border-radius: 4px;
+    outline: none;
+    padding: 0 15px;
+}
+
+.sm-f {
+    width: 90px;
+    height: 37px;
+    border: 1px solid #dadada;
+    border-radius: 4px;
+    outline: none;
+    padding: 0 15px; 
+}
+
+.ju-space {
+    justify-content: space-between;
+}
+
+.wi80px {
+    width: 100px;
+}
+
+.begie {
+    background: beige;
+}

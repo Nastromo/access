@@ -30,11 +30,16 @@ import {
     addSpec,
     delSet,
     addSet,
+    handleDelete,
+    handleTimeDelete,
+    handlePolicy,
+    handleCode,
+    handleOption
 } from '../store/actions/Acc';
 import SearchInput from './SearchInput';
 
 
-
+// const arr = JSON.stringify([{ code: "fdfd", name: "Test", option: "some", policy: "some policy" }]);
 
 export class Main extends Component {
     constructor(props) {
@@ -42,11 +47,33 @@ export class Main extends Component {
         this.dateOptions = [`Today`, `Yesterday`, `2 Days Ago`];
         this.fastingOptions = [`Yes`, `No`, `Unknown`];
         this.statOptions = [`Yes`, `No`];
-        this.orderType = [`IGS Initial`, `IGS Follow up`, `IGS Redraw`, `IGS Lite`];
+        this.orderType = [``, `IGS Initial`, `IGS Follow up`, `IGS Redraw`, `IGS Lite`];
         this.states = [`AL`, `AK`, `AZ`, `AR`, `CA`, `CO`, `CT`, `DE`, `FL`, `GA`, `HI`, `ID`, `IL`, `IN`, `IA`, `KS`, `KY`, `LA`, `ME`, `MD`, `MA`, `MI`, `MN`, `MS`, `MO`, `MT`, `NE`, `NV`, `NH`, `NJ`, `NM`, `NY`, `NC`, `ND`, `OH`, `OK`, `OR`, `PA`, `RI`, `SC`, `SD`, `TN`, `TX`, `UT`, `VT`, `VA`, `WA`, `WV`, `WI`, `WY`];
         this.bills = [`Insurance`, `Patient`, `Client`];
         this.sex = [`Female`, `Male`, `Unknown`];
         this.numbers = [2, 3, 4, 5, 6, 10, 12];
+        this.rels = [`Self`, `Spouce`, `Child`];
+    }
+
+
+
+    returnIns = () => {
+        const list = JSON.parse(this.props.acc.insurances ? this.props.acc.insurances : "[]");
+        return list.map((item, i) => {
+            return (
+                <div key={i} className="flex ju-space">
+                    <input className="sm37-f" id={i} value={item.code} onChange={this.props.handleCode} />
+                    
+                    <p>{item.name}</p>
+                    
+                    <input className="sm37-f" id={i} value={item.option} onChange={this.props.handleOption} />
+
+                    <input className="sm-f" id={i} value={item.policy} onChange={this.props.handlePolicy} />
+
+                    <div onClick={this.delDiag} id={i} className="delete-sml"></div>
+                </div>
+            )
+        });
     }
 
 
@@ -63,6 +90,9 @@ export class Main extends Component {
                             <p className="tit-ins">Rel 2 Ins</p>
                             <p className="tit-ins">Policy</p>
                             <p className="tit-ins">Primary</p>
+                        </div>
+                        <div>
+                            {this.returnIns()}
                         </div>
                     </div>
                 );
@@ -157,7 +187,7 @@ export class Main extends Component {
                                             menu={this.dateOptions}
                                             id="date" />
                                     </div>
-                                    <input className="simple-input sma" value={this.props.acc.time ? this.props.acc.time : ""} onChange={this.props.changeTime} placeholder="HH:mm" />
+                                    <input className="simple-input sma" value={this.props.acc.time ? this.props.acc.time : ""} onChange={this.props.changeTime} onKeyDown={this.props.handleTimeDelete} placeholder="HH:mm" />
                                 </div>
                             </div>
                             <div className="gg">
@@ -218,7 +248,7 @@ export class Main extends Component {
                                 <p className="tit-ins">Specimens</p>
                                 <SearchInput
                                     id="specimens"
-                                    type="text"
+                                    type="number"
                                     view="search-input"
                                     url="specimens"
                                     onItemClick={this.props.addSpec}
@@ -254,7 +284,7 @@ export class Main extends Component {
                                         </div>
                                         <div>
                                             <p className="tit-ins">DOB</p>
-                                            <input className="simple-input sma-150 ma-ri-10" value={this.props.acc.dob ? this.props.acc.dob : ""} onChange={this.props.changeDob} />
+                                            <input className="simple-input sma-150 ma-ri-10" value={this.props.acc.dob ? this.props.acc.dob : ""} onKeyDown={this.props.handleDelete} onChange={this.props.changeDob} />
                                         </div>
                                         <div>
                                             <p className="tit-ins">Sex</p>
@@ -346,14 +376,14 @@ export class Main extends Component {
                     </div>
                 </div>
                 <div className="derio">
-                    <p className="tit-ins">Printer:</p>
+                    {/* <p className="tit-ins">Printer:</p>
                     <div className="wi150px">
                         <DropDown
                             option={this.props.numbers}
                             status={this.props.isNumbOpen}
                             menu={this.numbers}
                             id="numbers" />
-                    </div>
+                    </div> */}
                     <input className="simple-input wi50re" type="text" defaultValue={2} />
                     <button onClick={this.props.createAccession} className="create-b">Create</button>
                 </div>
@@ -428,6 +458,12 @@ const mapDispatchToProps = dispatch => ({
     addSpec: (text) => dispatch(addSpec(text)),
     delSet: (index) => dispatch(delSet(index)),
     addSet: (text) => dispatch(addSet(text)),
+    handleDelete: (e) => dispatch(handleDelete(e)),
+    handleTimeDelete: (e) => dispatch(handleTimeDelete(e)),
+
+    handlePolicy: (e) => dispatch(handlePolicy(e)),
+    handleCode: (e) => dispatch(handleCode(e)),
+    handleOption: (e) => dispatch(handleOption(e)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)

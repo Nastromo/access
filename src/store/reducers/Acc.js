@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export const acc = (state = {}, action) => {
-    let newState, diags;
+    let newState, diags, list;
     switch (action.type) {
         case `SET_ACC`:
             newState = action.obj;
@@ -111,6 +111,32 @@ export const acc = (state = {}, action) => {
             newState = JSON.parse(JSON.stringify(state));
             newState.eon = action.text;
             return newState;
+
+
+
+        case `HANDLE_POLICY`:
+            newState = JSON.parse(JSON.stringify(state));
+            list = JSON.parse(newState.insurances);
+            list[action.index].policy = action.text;
+            newState.insurances = JSON.stringify(list);
+            return newState;
+
+        case `HANDLE_CODE`:
+            newState = JSON.parse(JSON.stringify(state));
+            list = JSON.parse(newState.insurances);
+            list[action.index].code = action.text;
+            newState.insurances = JSON.stringify(list);
+            return newState;
+
+        case `HANDLE_OPTION`:
+            newState = JSON.parse(JSON.stringify(state));
+            list = JSON.parse(newState.insurances);
+            list[action.index].policy = action.text;
+            newState.option = JSON.stringify(list);
+            return newState;
+
+
+
 
         case `ADD_DIAG`:
             newState = JSON.parse(JSON.stringify(state));

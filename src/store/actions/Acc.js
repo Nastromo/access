@@ -32,10 +32,48 @@ export const changePhisId = (e) => ({
     text: e.target.value
 });
 
-export const changeTime = (e) => ({
+export const setTime = (text) => ({
     type: 'CHANGE_TIME',
+    text
+});
+
+export const handlePolicy = (e) => ({
+    type: 'HANDLE_POLICY',
+    index: e.target.id,
     text: e.target.value
 });
+
+export const handleCode = (e) => ({
+    type: 'HANDLE_CODE',
+    index: e.target.id,
+    text: e.target.value
+});
+
+export const handleOption = (e) => ({
+    type: 'HANDLE_OPTION',
+    index: e.target.id,
+    text: e.target.value
+});
+
+export const handleTimeDelete = (e) => {
+    return async (dispatch, getState) => {
+        const time = getState().acc.time ? getState().acc.time : "";
+        if (e.keyCode === 8 && time.length === 3) {
+            dispatch(setTime(time.slice(0, -1)));
+        }
+    }
+};
+
+export const changeTime = (e) => {
+    return async (dispatch, getState) => {
+        let time = "";
+        time = time + e.target.value;
+        if (time.length === 2) {
+            time = time + ":";
+        }
+        dispatch(setTime(time));
+    }
+};
 
 export const changeDiag = (e) => ({
     type: 'CHANGE_DIAG',
@@ -62,10 +100,30 @@ export const changeMname = (e) => ({
     text: e.target.value
 });
 
-export const changeDob = (e) => ({
+export const setDob = (text) => ({
     type: 'CHANGE_DOB',
-    text: e.target.value
+    text
 });
+
+export const handleDelete = (e) => {
+    return async (dispatch, getState) => {
+        const dob = getState().acc.dob ? getState().acc.dob : "";
+        if ((e.keyCode === 8 && dob.length === 6) || (e.keyCode === 8 && dob.length === 3)) {
+            dispatch(setDob(dob.slice(0, -1)));
+        }
+    }
+};
+
+export const changeDob = (e) => {
+    return async (dispatch, getState) => {
+        let dob = "";
+        dob = dob + e.target.value;
+        if (dob.length === 2 || dob.length === 5) {
+            dob = dob + "/";
+        }
+        dispatch(setDob(dob));
+    }
+};
 
 export const changeChart = (e) => ({
     type: 'CHANGE_CHART',
