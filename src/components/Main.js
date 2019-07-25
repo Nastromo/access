@@ -34,7 +34,9 @@ import {
     handleTimeDelete,
     handlePolicy,
     handleCode,
-    handleOption
+    rel2Ins,
+    getIns,
+    delIns
 } from '../store/actions/Acc';
 import SearchInput from './SearchInput';
 
@@ -61,21 +63,18 @@ export class Main extends Component {
         const list = JSON.parse(this.props.acc.insurances ? this.props.acc.insurances : "[]");
         return list.map((item, i) => {
             return (
-                <div key={i} className="flex ju-space">
-                    <input className="sm37-f" id={i} value={item.code} onChange={this.props.handleCode} />
-                    
-                    <p>{item.name}</p>
-                    
-                    <input className="sm37-f" id={i} value={item.option} onChange={this.props.handleOption} />
+                <div key={i} className="flex ju-space mar4">
+                    <input className="sm37-f" id={i} value={item.companyName} onChange={this.props.handleCode} />
 
-                    <input className="sm-f" id={i} value={item.policy} onChange={this.props.handlePolicy} />
+                    <input className="sm37-f" id={i} value={item.rel2Ins ? item.rel2Ins : ""} onChange={this.props.rel2Ins} />
 
-                    <div onClick={this.delDiag} id={i} className="delete-sml"></div>
+                    <input className="sm-f" id={i} value={item.policy ? item.policy : ""} onChange={this.props.handlePolicy} />
+
+                    <div onClick={this.props.delIns} id={i} className="delete-sml"></div>
                 </div>
             )
         });
     }
-
 
     returnBillTo = (option) => {
         switch (option) {
@@ -83,9 +82,17 @@ export class Main extends Component {
                 return (
                     <div className="widzs">
                         <p className="tit-ins">Insurances</p>
-                        <input className="simple-input wi100pre" value={this.props.acc.insurances ? this.props.acc.insurances : ""} onChange={this.props.changeIns} />
+                        <SearchInput
+                            id="insurances"
+                            type="text"
+                            view="search-input"
+                            url="insurances"
+                            onItemClick={this.props.getIns}
+                            isLoading={this.props.isLoadIns}
+                            searchQuery={this.props.searchIns}
+                            searchResults={this.props.insurances} />
+
                         <div className="fle-gre-d">
-                            <p className="tit-ins">Code</p>
                             <p className="tit-ins">Name</p>
                             <p className="tit-ins">Rel 2 Ins</p>
                             <p className="tit-ins">Policy</p>
@@ -427,6 +434,11 @@ const mapStateToProps = (state) => ({
     searchSet: state.searchQuery.sets,
     sets: state.searchResults.sets,
     setList: state.setList,
+
+    isLoadIns: state.searchLoading.insurances,
+    searchIns: state.searchQuery.insurances,
+    insurances: state.searchResults.insurances,
+    insList: state.insList,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -460,10 +472,11 @@ const mapDispatchToProps = dispatch => ({
     addSet: (text) => dispatch(addSet(text)),
     handleDelete: (e) => dispatch(handleDelete(e)),
     handleTimeDelete: (e) => dispatch(handleTimeDelete(e)),
-
     handlePolicy: (e) => dispatch(handlePolicy(e)),
     handleCode: (e) => dispatch(handleCode(e)),
-    handleOption: (e) => dispatch(handleOption(e)),
+    rel2Ins: (e) => dispatch(rel2Ins(e)),
+    getIns: (text) => dispatch(getIns(text)),
+    delIns: (index) => dispatch(delIns(index)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)

@@ -7,9 +7,20 @@ export const acc = (state = {}, action) => {
             newState = action.obj;
             return newState;
 
-        case `CHANGE_INS`:
+        case `SET_INS`:
             newState = JSON.parse(JSON.stringify(state));
-            newState.insurances = action.text;
+            list = JSON.parse(newState.insurances ? newState.insurances : "[]");
+            list.push({
+                companyName: action.obj.companyName
+            });
+            newState.insurances = JSON.stringify(list);
+            return newState;
+
+        case `DEL_INS`:
+            newState = JSON.parse(JSON.stringify(state));
+            list = JSON.parse(newState.insurances ? newState.insurances : "[]");
+            list.splice(action.index, 1);
+            newState.insurances = JSON.stringify(list);
             return newState;
 
         case `CHANGE_BILL_STR`:
@@ -112,8 +123,6 @@ export const acc = (state = {}, action) => {
             newState.eon = action.text;
             return newState;
 
-
-
         case `HANDLE_POLICY`:
             newState = JSON.parse(JSON.stringify(state));
             list = JSON.parse(newState.insurances);
@@ -131,12 +140,9 @@ export const acc = (state = {}, action) => {
         case `HANDLE_OPTION`:
             newState = JSON.parse(JSON.stringify(state));
             list = JSON.parse(newState.insurances);
-            list[action.index].policy = action.text;
-            newState.option = JSON.stringify(list);
+            list[action.index].rel2Ins = action.text;
+            newState.insurances = JSON.stringify(list);
             return newState;
-
-
-
 
         case `ADD_DIAG`:
             newState = JSON.parse(JSON.stringify(state));

@@ -49,11 +49,32 @@ export const handleCode = (e) => ({
     text: e.target.value
 });
 
-export const handleOption = (e) => ({
+export const rel2Ins = (e) => ({
     type: 'HANDLE_OPTION',
     index: e.target.id,
     text: e.target.value
 });
+
+export const setIns = (obj) => ({
+    type: 'SET_INS',
+    obj
+});
+
+export const delIns = (index) => ({
+    type: 'DEL_INS',
+    index
+});
+
+export const getIns = (name) => {
+    return async (dispatch, getState) => {
+        try {
+            const res = await API.get(`/v1/get-ins?key=${name}`);
+            dispatch(setIns(res.data));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
 
 export const handleTimeDelete = (e) => {
     return async (dispatch, getState) => {
