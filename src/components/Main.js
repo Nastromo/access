@@ -255,7 +255,7 @@ export class Main extends Component {
                                 <p className="tit-ins">Specimens</p>
                                 <SearchInput
                                     id="specimens"
-                                    type="number"
+                                    type="text"
                                     view="search-input"
                                     url="specimens"
                                     onItemClick={this.props.addSpec}

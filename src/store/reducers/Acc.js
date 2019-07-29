@@ -147,7 +147,6 @@ export const acc = (state = {}, action) => {
         case `ADD_DIAG`:
             newState = JSON.parse(JSON.stringify(state));
             diags = JSON.parse(newState.diagnoses ? newState.diagnoses : "[]");
-            console.log(action.text)
             diags.push(action.text);
             newState.diagnoses = JSON.stringify(diags);
             return newState;

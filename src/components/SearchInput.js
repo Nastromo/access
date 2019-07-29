@@ -16,16 +16,18 @@ export class SearchInput extends Component {
     }
 
     handleKeydown = (e) => {
-        console.log(e.keyCode);
         if (this.props.searchResults && this.props.searchResults.length > 0 && e.keyCode === 40) {
             this.props.setActiveRow(this.props.activeRow + 1);
+
         } else if (this.props.searchResults && this.props.searchResults.length > 0 && e.keyCode === 38) {
             this.props.setActiveRow(this.props.activeRow - 1);
+
         } else if (this.props.searchResults && this.props.searchResults.length > 0 && e.keyCode === 27) {
             this.props.setResults({
                 id: this.props.id,
                 list: []
             });
+
         } else if (this.props.searchResults && this.props.searchResults.length > 0 && e.keyCode === 13) {
             if (typeof this.props.onItemClick === "function") {
                 this.props.onItemClick(this.props.searchResults[this.props.activeRow]);
