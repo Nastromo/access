@@ -17,6 +17,11 @@ export const setResults = (obj) => ({
     obj
 });
 
+export const setActiveRow = (index) => ({
+    type: 'SET_ACTIVE_ROW',
+    index
+});
+
 export const setChosenItem = (obj) => ({
     type: 'SET_CHOSEN_ITEM',
     obj

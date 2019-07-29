@@ -1,16 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getResults, itemClick, setResults } from '../store/actions/SearchInput';
+import { getResults, itemClick, setResults, setActiveRow } from '../store/actions/SearchInput';
 
 
 
 export class SearchInput extends Component {
     componentWillMount() {
         document.addEventListener('click', this.handleSearchDropDown);
+        document.addEventListener('keydown', this.handleKeydown);
     }
 
     componentWillUnmount() {
         document.removeEventListener('click', this.handleSearchDropDown);
+        document.addEventListener('keydown', this.handleKeydown);
+    }
+
+    handleKeydown = (e) => {
+        console.log(e.keyCode);
+        if (this.props.searchResults && this.props.searchResults.length > 0 && e.keyCode === 40) {
+            this.props.setActiveRow(this.props.activeRow + 1);
+        } else if (this.props.searchResults && this.props.searchResults.length > 0 && e.keyCode === 38) {
+            this.props.setActiveRow(this.props.activeRow - 1);
+        } else if (this.props.searchResults && this.props.searchResults.length > 0 && e.keyCode === 27) {
+            this.props.setResults({
+                id: this.props.id,
+                list: []
+            });
+        } else if (this.props.searchResults && this.props.searchResults.length > 0 && e.keyCode === 13) {
+            if (typeof this.props.onItemClick === "function") {
+                this.props.onItemClick(this.props.searchResults[this.props.activeRow]);
+                this.props.itemClick({
+                    id: this.props.id,
+                    text: this.props.searchResults[this.props.activeRow],
+                });
+            } else {
+                this.props.itemClick({
+                    id: this.props.id,
+                    text: this.props.searchResults[this.props.activeRow],
+                });
+            }
+        }
     }
 
     handleSearchDropDown = (e) => {
@@ -27,9 +56,9 @@ export class SearchInput extends Component {
     itemClick = (e) => {
         this.props.itemClick({
             id: this.props.id,
-            text: e.target.id,
-        })
-        if (typeof this.props.onItemClick === "function") this.props.onItemClick(e.target.id);
+            text: this.props.searchResults[this.props.activeRow],
+        });
+        if (typeof this.props.onItemClick === "function") this.props.onItemClick(this.props.searchResults[this.props.activeRow]);
     }
 
     render() {
@@ -42,7 +71,8 @@ export class SearchInput extends Component {
                     type={this.props.type}
                     placeholder={this.props.placeholder}
                     value={this.props.searchQuery || "" }
-                    onChange={this.getResults} />
+                    onChange={this.getResults}
+                    autoComplete="off" />
 
                 { this.props.isLoading ? <div className="absolute whiteback">Loading...</div> : null }
 
@@ -50,7 +80,8 @@ export class SearchInput extends Component {
                     {
                        this.props.searchResults ? this.props.searchResults.map((item, i) => {
                             return (
-                                <p onClick={this.itemClick} id={item} className="search-item" key={i}>{item}</p>
+                                <p onClick={this.itemClick} id={item} className={this.props.activeRow === i ? "search-item active-row" 
+                                : "search-item"} key={i}>{item}</p>
                             )
                         }) : null
                     }
@@ -62,13 +93,14 @@ export class SearchInput extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    
+    activeRow: state.activeRow
 })
 
 const mapDispatchToProps = dispatch => ({
     getResults: (searchInputId, url, searchQuery) => dispatch(getResults(searchInputId, url, searchQuery)),
     itemClick: (e) => dispatch(itemClick(e)),
-    setResults: (obj) => dispatch(setResults(obj))
+    setResults: (obj) => dispatch(setResults(obj)),
+    setActiveRow: (index) => dispatch(setActiveRow(index)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchInput)

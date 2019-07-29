@@ -22,6 +22,15 @@ export const searchLoading = (state = {}, action) => {
     }
 }
 
+export const activeRow = (state = 0, action) => {
+    switch (action.type) {
+        case `SET_ACTIVE_ROW`:
+            return action.index;
+
+        default: return state;
+    }
+}
+
 export const searchResults = (state = {}, action) => {
     let newState;
     switch (action.type) {

@@ -414,6 +414,10 @@ p.logo-text:hover {
     cursor: pointer;
 }
 
+.active-row {
+    background: #f5f5f5;
+}
+
 .search-item:hover {
     background: #f5f5f5;
 }

@@ -3,11 +3,12 @@ import { notificationCss, notificationText } from './Notification';
 import { loginSpinner } from './Spinner';
 import { dropdownStatus, dropdownOption } from './DropDown';
 import { acc } from './Acc';
-import { searchQuery, searchLoading, searchResults } from '../reducers/SearchInput';
+import { searchQuery, searchLoading, searchResults, activeRow } from '../reducers/SearchInput';
 
 
 
 const RootReducer = combineReducers({
+    activeRow,
     searchQuery,
     searchLoading,
     searchResults,
