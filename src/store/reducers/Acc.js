@@ -123,6 +123,20 @@ export const acc = (state = {}, action) => {
             newState.eon = action.text;
             return newState;
 
+        case `ADD_WAR`:
+            newState = JSON.parse(JSON.stringify(state));
+            list = JSON.parse(newState.warnings ? newState.warnings : "[]");
+            list.push(action.text);
+            newState.warnings = JSON.stringify(list);
+            return newState;
+
+        case `DEL_WAR`:
+            newState = JSON.parse(JSON.stringify(state));
+            list = JSON.parse(newState.warnings);
+            list.splice(action.index, 1);
+            newState.warnings = JSON.stringify(list);
+            return newState;
+
         case `HANDLE_POLICY`:
             newState = JSON.parse(JSON.stringify(state));
             list = JSON.parse(newState.insurances);

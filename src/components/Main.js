@@ -36,7 +36,9 @@ import {
     handleCode,
     rel2Ins,
     getIns,
-    delIns
+    delIns,
+    addWar,
+    delWar,
 } from '../store/actions/Acc';
 import SearchInput from './SearchInput';
 
@@ -374,7 +376,16 @@ export class Main extends Component {
                                         ></textarea>
 
                                         <p className="tit-ins mar-to">WARNINGS</p>
-                                        <p className="tit-ins mar-to">No any warnings...</p>
+                                        <SearchInput
+                                            id="warnings"
+                                            type="text"
+                                            view="search-input"
+                                            url="warnings"
+                                            onItemClick={this.props.addWar}
+                                            isLoading={this.props.isLoadWar}
+                                            searchQuery={this.props.searchWar}
+                                            searchResults={this.props.warnings} />
+                                        {this.returnWarnings()}
                                     </div>
                                 </div>
                                 {this.returnBillTo(this.props.acc.billTo)}
@@ -396,6 +407,22 @@ export class Main extends Component {
                 </div>
             </div>
         )
+    }
+
+    delWar = (e) => {
+        this.props.delWar(Number(e.target.id));
+    }
+
+    returnWarnings = () => {
+        const list = JSON.parse(this.props.acc.warnings ? this.props.acc.warnings : "[]");
+        return list.map((item, i) => {
+            return (
+                <div key={i} className="flex">
+                    <div className="item-row">{item}</div>
+                    <div onClick={this.delWar} className="delete-sml"></div>
+                </div>
+            )
+        });
     }
 }
 
@@ -423,22 +450,22 @@ const mapStateToProps = (state) => ({
     isLoadDiag: state.searchLoading.diagnoses,
     searchDiag: state.searchQuery.diagnoses,
     diagnoses: state.searchResults.diagnoses,
-    diagList: state.diagList,
 
     isLoadSpec: state.searchLoading.specimens,
     searchSpec: state.searchQuery.specimens,
     specimens: state.searchResults.specimens,
-    specList: state.specList,
 
     isLoadSet: state.searchLoading.sets,
     searchSet: state.searchQuery.sets,
     sets: state.searchResults.sets,
-    setList: state.setList,
 
     isLoadIns: state.searchLoading.insurances,
     searchIns: state.searchQuery.insurances,
     insurances: state.searchResults.insurances,
-    insList: state.insList,
+
+    isLoadWar: state.searchLoading.warnings,
+    searchWar: state.searchQuery.warnings,
+    warnings: state.searchResults.warnings,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -477,6 +504,8 @@ const mapDispatchToProps = dispatch => ({
     rel2Ins: (e) => dispatch(rel2Ins(e)),
     getIns: (text) => dispatch(getIns(text)),
     delIns: (index) => dispatch(delIns(index)),
+    addWar: (text) => dispatch(addWar(text)),
+    delWar: (index) => dispatch(delWar(index)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)

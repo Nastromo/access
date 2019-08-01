@@ -216,6 +216,16 @@ export const delSet = (index) => ({
     index
 });
 
+export const addWar = (text) => ({
+    type: 'ADD_WAR',
+    text
+});
+
+export const delWar = (index) => ({
+    type: 'DEL_WAR',
+    index
+});
+
 export const addSet = (text) => ({
     type: 'ADD_SET',
     text
