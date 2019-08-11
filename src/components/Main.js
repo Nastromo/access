@@ -182,9 +182,31 @@ export class Main extends Component {
                     <div>
                         <p className="side-t">Client Details</p>
                         <p className="tit-ins gg">Client Location ID</p>
-                        <input className="simple-input widkkk" value={this.props.acc.clientLocationId ? this.props.acc.clientLocationId : ""} onChange={this.props.changeLocId} />
+
+                        {/* <input className="simple-input widkkk" value={this.props.acc.clientLocationId ? this.props.acc.clientLocationId : ""} onChange={this.props.changeLocId} /> */}
+
+                        <SearchInput
+                            id="locations"
+                            type="text"
+                            view="search-input widkkk"
+                            url="locations"
+                            isLoading={this.props.isLoadLoc}
+                            searchQuery={this.props.searchLoc}
+                            searchResults={this.props.locations} />
+
                         <p className="tit-ins">Physician ID</p>
-                        <input className="simple-input widkkk" value={this.props.acc.physicianId ? this.props.acc.physicianId : ""} onChange={this.props.changePhisId} />
+
+                        {/* <input className="simple-input widkkk" value={this.props.acc.physicianId ? this.props.acc.physicianId : ""} onChange={this.props.changePhisId} /> */}
+
+                        <SearchInput
+                            id="physician"
+                            type="text"
+                            view="search-input widkkk"
+                            url="physician"
+                            isLoading={this.props.isLoadPhy}
+                            searchQuery={this.props.searchPhy}
+                            searchResults={this.props.physician} />
+
                         <div className="fle-n-dd">
                             <div className="gg ll">
                                 <p className="tit-ins">Col. Date</p>
@@ -466,6 +488,15 @@ const mapStateToProps = (state) => ({
     isLoadWar: state.searchLoading.warnings,
     searchWar: state.searchQuery.warnings,
     warnings: state.searchResults.warnings,
+
+    isLoadLoc: state.searchLoading.locations,
+    searchLoc: state.searchQuery.locations,
+    locations: state.searchResults.locations,
+
+    isLoadPhy: state.searchLoading.physician,
+    searchPhy: state.searchQuery.physician,
+    physician: state.searchResults.physician,
+
 })
 
 const mapDispatchToProps = dispatch => ({

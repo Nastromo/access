@@ -234,7 +234,11 @@ export const addSet = (text) => ({
 export const createAccession = () => {
     return async (dispatch, getState) => {
         try {
+            const phy = getState().searchQuery.physician;
+            const loc = getState().searchQuery.locations;
             const acc = getState().acc;
+            acc.clientLocationId = loc;
+            acc.physicianId = phy;
             await API.post(`/v1/create-accession`, acc);
             dispatch(showNotification(`Saved...`, `notification-show notification-green`));
             dispatch(setAcc({}));
