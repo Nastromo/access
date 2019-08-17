@@ -2146,6 +2146,10 @@ p.logo-text:hover {
     width: 400px;
 }
 
+.pad-ri-15 {
+    padding: 0 0 0 15px;
+}
+
 .gg {
     margin: 15px 0 0 0;
 }

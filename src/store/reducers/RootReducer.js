@@ -4,10 +4,15 @@ import { loginSpinner } from './Spinner';
 import { dropdownStatus, dropdownOption } from './DropDown';
 import { acc } from './Acc';
 import { searchQuery, searchLoading, searchResults, activeRow } from '../reducers/SearchInput';
+import { newDDStatus, newDDOption } from '../reducers/NewDropDown';
+import { checkbox } from './CheckBox';
 
 
 
 const RootReducer = combineReducers({
+    checkbox,
+    newDDStatus,
+    newDDOption,
     activeRow,
     searchQuery,
     searchLoading,

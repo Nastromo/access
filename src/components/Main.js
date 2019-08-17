@@ -41,6 +41,9 @@ import {
     delWar,
 } from '../store/actions/Acc';
 import SearchInput from './SearchInput';
+import NewDropDown from './NewDropDown';
+import Checkbox from './Checkbox';
+
 
 
 // const arr = JSON.stringify([{ code: "fdfd", name: "Test", option: "some", policy: "some policy" }]);
@@ -66,11 +69,18 @@ export class Main extends Component {
         return list.map((item, i) => {
             return (
                 <div key={i} className="flex ju-space mar4">
-                    <input className="sm37-f" id={i} value={item.companyName} onChange={this.props.handleCode} />
-
-                    <input className="sm37-f" id={i} value={item.rel2Ins ? item.rel2Ins : ""} onChange={this.props.rel2Ins} />
+                    <p className="pad-ri-15">{item.companyName}</p>
+                    <NewDropDown
+                        id={`refToIns${i}`}
+                        actionType="SET_INS_DROP_OPTION"
+                        height="30px"
+                        status={this.props[`isInsOpen${i}`]}
+                        menu={this.rels}
+                        option={this.props[`ins${i}`]} />
 
                     <input className="sm-f" id={i} value={item.policy ? item.policy : ""} onChange={this.props.handlePolicy} />
+
+                    <Checkbox status={this.props[`insCheckStatus${i}`]} id={`insCheck${i}`} />
 
                     <div onClick={this.props.delIns} id={i} className="delete-sml"></div>
                 </div>
@@ -176,6 +186,7 @@ export class Main extends Component {
     }
 
     render() {
+        // console.log(this.props.statew);
         return (
             <div className="padd15">
                 <div className="fle-n-dd">
@@ -448,56 +459,68 @@ export class Main extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    date: state.dropdownOption.date,
-    isDateOpen: state.dropdownStatus.date,
-    fasting: state.dropdownOption.fasting,
-    isFastingOpen: state.dropdownStatus.fasting,
-    stat: state.dropdownOption.stat,
-    isStatOpen: state.dropdownStatus.stat,
-    orderType: state.dropdownOption.orderType,
-    isOrderTypeOpen: state.dropdownStatus.orderType,
-    state: state.dropdownOption.state,
-    isStateOpen: state.dropdownStatus.state,
-    bills: state.dropdownOption.bills,
-    isBillsOpen: state.dropdownStatus.bills,
-    sex: state.dropdownOption.sex,
-    isSexOpen: state.dropdownStatus.sex,
-    numbers: state.dropdownOption.numbers,
-    isNumbOpen: state.dropdownStatus.numbers,
-    billStates: state.dropdownOption.billStates,
-    isBilLStatesOpen: state.dropdownStatus.billStates,
-    acc: state.acc,
+const mapStateToProps = (state) => {
+    const list = JSON.parse(state.acc.insurances ? state.acc.insurances : "[]");
 
-    isLoadDiag: state.searchLoading.diagnoses,
-    searchDiag: state.searchQuery.diagnoses,
-    diagnoses: state.searchResults.diagnoses,
+    let stateToReturn = {
+        statew: state,
+        date: state.dropdownOption.date,
+        isDateOpen: state.dropdownStatus.date,
+        fasting: state.dropdownOption.fasting,
+        isFastingOpen: state.dropdownStatus.fasting,
+        stat: state.dropdownOption.stat,
+        isStatOpen: state.dropdownStatus.stat,
+        orderType: state.dropdownOption.orderType,
+        isOrderTypeOpen: state.dropdownStatus.orderType,
+        state: state.dropdownOption.state,
+        isStateOpen: state.dropdownStatus.state,
+        bills: state.dropdownOption.bills,
+        isBillsOpen: state.dropdownStatus.bills,
+        sex: state.dropdownOption.sex,
+        isSexOpen: state.dropdownStatus.sex,
+        numbers: state.dropdownOption.numbers,
+        isNumbOpen: state.dropdownStatus.numbers,
+        billStates: state.dropdownOption.billStates,
+        isBilLStatesOpen: state.dropdownStatus.billStates,
+        acc: state.acc,
 
-    isLoadSpec: state.searchLoading.specimens,
-    searchSpec: state.searchQuery.specimens,
-    specimens: state.searchResults.specimens,
+        isLoadDiag: state.searchLoading.diagnoses,
+        searchDiag: state.searchQuery.diagnoses,
+        diagnoses: state.searchResults.diagnoses,
 
-    isLoadSet: state.searchLoading.sets,
-    searchSet: state.searchQuery.sets,
-    sets: state.searchResults.sets,
+        isLoadSpec: state.searchLoading.specimens,
+        searchSpec: state.searchQuery.specimens,
+        specimens: state.searchResults.specimens,
 
-    isLoadIns: state.searchLoading.insurances,
-    searchIns: state.searchQuery.insurances,
-    insurances: state.searchResults.insurances,
+        isLoadSet: state.searchLoading.sets,
+        searchSet: state.searchQuery.sets,
+        sets: state.searchResults.sets,
 
-    isLoadWar: state.searchLoading.warnings,
-    searchWar: state.searchQuery.warnings,
-    warnings: state.searchResults.warnings,
+        isLoadIns: state.searchLoading.insurances,
+        searchIns: state.searchQuery.insurances,
+        insurances: state.searchResults.insurances,
 
-    isLoadLoc: state.searchLoading.locations,
-    searchLoc: state.searchQuery.locations,
-    locations: state.searchResults.locations,
+        isLoadWar: state.searchLoading.warnings,
+        searchWar: state.searchQuery.warnings,
+        warnings: state.searchResults.warnings,
 
-    isLoadPhy: state.searchLoading.physician,
-    searchPhy: state.searchQuery.physician,
-    physician: state.searchResults.physician,
+        isLoadLoc: state.searchLoading.locations,
+        searchLoc: state.searchQuery.locations,
+        locations: state.searchResults.locations,
 
-})
+        isLoadPhy: state.searchLoading.physician,
+        searchPhy: state.searchQuery.physician,
+        physician: state.searchResults.physician,
+    }
+
+    for (let i = 0; i < list.length; i++) {
+        stateToReturn[`ins${i}`] = state.newDDOption[`refToIns${i}`];
+        stateToReturn[`isInsOpen${i}`] = state.newDDStatus[`refToIns${i}`];
+        stateToReturn[`insCheckStatus${i}`] = state.checkbox[`insCheck${i}`];
+    }
+
+    return stateToReturn;
+}
 
 const mapDispatchToProps = dispatch => ({
     changeIns: (e) => dispatch(changeIns(e)),
