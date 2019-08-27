@@ -126,7 +126,17 @@ export const acc = (state = {}, action) => {
         case `ADD_WAR`:
             newState = JSON.parse(JSON.stringify(state));
             list = JSON.parse(newState.warnings ? newState.warnings : "[]");
-            list.push(action.text);
+            list.push({
+                text: action.obj.text,
+                comment: action.obj.comment
+            });
+            newState.warnings = JSON.stringify(list);
+            return newState;
+
+        case `CHANGE_WAR_COM`:
+            newState = JSON.parse(JSON.stringify(state));
+            list = JSON.parse(newState.warnings ? newState.warnings : "[]");
+            list[action.i].comment = action.text;
             newState.warnings = JSON.stringify(list);
             return newState;
 
@@ -175,7 +185,17 @@ export const acc = (state = {}, action) => {
         case `ADD_SPEC`:
             newState = JSON.parse(JSON.stringify(state));
             diags = JSON.parse(newState.specimens ? newState.specimens : "[]");
-            diags.push(action.text);
+            diags.push({
+                code: action.obj.code,
+                qty: action.obj.qty,
+            });
+            newState.specimens = JSON.stringify(diags);
+            return newState;
+
+        case `CHANGE_SPEC_QTY`:
+            newState = JSON.parse(JSON.stringify(state));
+            diags = JSON.parse(newState.specimens ? newState.specimens : "[]");
+            diags[action.i].qty = action.qty;
             newState.specimens = JSON.stringify(diags);
             return newState;
 

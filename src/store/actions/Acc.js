@@ -32,6 +32,22 @@ export const changePhisId = (e) => ({
     text: e.target.value
 });
 
+export const changeSpecQty = (i, qty) => {
+    return {
+        type: 'CHANGE_SPEC_QTY',
+        i,
+        qty
+    }
+};
+
+export const changeWarCom = (i, text) => {
+    return {
+        type: 'CHANGE_WAR_COM',
+        i,
+        text
+    }
+};
+
 export const setTime = (text) => ({
     type: 'CHANGE_TIME',
     text
@@ -156,6 +172,12 @@ export const changeSet = (e) => ({
     text: e.target.value
 });
 
+
+export const changeTab = (bool) => ({
+    type: 'CHANGE_TAB',
+    bool: !bool
+});
+
 export const changeStreet = (e) => ({
     type: 'CHANGE_STREET',
     text: e.target.value
@@ -206,9 +228,9 @@ export const delSpec = (index) => ({
     index
 });
 
-export const addSpec = (text) => ({
+export const addSpec = (obj) => ({
     type: 'ADD_SPEC',
-    text
+    obj
 });
 
 export const delSet = (index) => ({
@@ -216,9 +238,9 @@ export const delSet = (index) => ({
     index
 });
 
-export const addWar = (text) => ({
+export const addWar = (obj) => ({
     type: 'ADD_WAR',
-    text
+    obj
 });
 
 export const delWar = (index) => ({
@@ -239,7 +261,7 @@ export const createAccession = () => {
             const acc = getState().acc;
             const ins = getState().acc.insurances;
             const insurances = JSON.parse(ins ? ins : "[]");
-            for (let i = 0; i < insurances.length; i++) {    
+            for (let i = 0; i < insurances.length; i++) {
                 insurances[i].rel2Ins = getState().newDDOption[`refToIns${i}`]
                 insurances[i].primary = getState().checkbox[`insCheck${i}`]
             }

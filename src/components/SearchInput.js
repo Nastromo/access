@@ -30,11 +30,31 @@ export class SearchInput extends Component {
 
         } else if (this.props.searchResults && this.props.searchResults.length > 0 && e.keyCode === 13) {
             if (typeof this.props.onItemClick === "function") {
-                this.props.onItemClick(this.props.searchResults[this.props.activeRow]);
-                this.props.itemClick({
-                    id: this.props.id,
-                    text: this.props.searchResults[this.props.activeRow],
-                });
+                if (this.props.id === `specimens`) {
+                    this.props.onItemClick({
+                        code: this.props.searchResults[this.props.activeRow],
+                        qty: 0
+                    });
+                    this.props.itemClick({
+                        id: this.props.id,
+                        text: this.props.searchResults[this.props.activeRow],
+                    });
+                } else if (this.props.id === `warnings`) {
+                    this.props.onItemClick({
+                        text: this.props.searchResults[this.props.activeRow],
+                        comment: ""
+                    });
+                    this.props.itemClick({
+                        id: this.props.id,
+                        text: this.props.searchResults[this.props.activeRow],
+                    });
+                } else {
+                    this.props.onItemClick(this.props.searchResults[this.props.activeRow]);
+                    this.props.itemClick({
+                        id: this.props.id,
+                        text: this.props.searchResults[this.props.activeRow],
+                    });
+                }
             } else {
                 this.props.itemClick({
                     id: this.props.id,
@@ -58,9 +78,23 @@ export class SearchInput extends Component {
     itemClick = (e) => {
         this.props.itemClick({
             id: this.props.id,
-            text: this.props.searchResults[this.props.activeRow],
+            text: e.target.id,
         });
-        if (typeof this.props.onItemClick === "function") this.props.onItemClick(this.props.searchResults[this.props.activeRow]);
+        if (typeof this.props.onItemClick === "function") {
+            if (this.props.id === `specimens`) {
+                this.props.onItemClick({
+                    code: e.target.id,
+                    qty: 0
+                });
+            } else if (this.props.id === `warnings`) {
+                this.props.onItemClick({
+                    text: e.target.id,
+                    comment: ""
+                });
+            } else {
+                this.props.onItemClick(e.target.id);
+            }
+        }
     }
 
     render() {
@@ -72,18 +106,18 @@ export class SearchInput extends Component {
                     className={this.props.view}
                     type={this.props.type}
                     placeholder={this.props.placeholder}
-                    value={this.props.searchQuery || "" }
+                    value={this.props.searchQuery || ""}
                     onChange={this.getResults}
                     autoComplete="off" />
 
-                { this.props.isLoading ? <div className="absolute whiteback">Loading...</div> : null }
+                {this.props.isLoading ? <div className="absolute whiteback">Loading...</div> : null}
 
                 <div className={this.props.searchResults && this.props.searchResults.length > 0 ? "search-results" : null}>
                     {
-                       this.props.searchResults ? this.props.searchResults.map((item, i) => {
+                        this.props.searchResults ? this.props.searchResults.map((item, i) => {
                             return (
-                                <p onClick={this.itemClick} id={item} className={this.props.activeRow === i ? "search-item active-row" 
-                                : "search-item"} key={i}>{item}</p>
+                                <p onClick={this.itemClick} id={item} className={this.props.activeRow === i ? "search-item active-row"
+                                    : "search-item"} key={i}>{item}</p>
                             )
                         }) : null
                     }

@@ -6,10 +6,12 @@ import { acc } from './Acc';
 import { searchQuery, searchLoading, searchResults, activeRow } from '../reducers/SearchInput';
 import { newDDStatus, newDDOption } from '../reducers/NewDropDown';
 import { checkbox } from './CheckBox';
+import { isSets } from './Tab';
 
 
 
 const RootReducer = combineReducers({
+    isSets,
     checkbox,
     newDDStatus,
     newDDOption,

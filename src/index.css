@@ -912,6 +912,19 @@ p.logo-text:hover {
     padding: 0 15px 0;
 }
 
+.bas40 {
+    flex-basis: 40%;
+}
+
+.simple-input-row {
+    height: 25px;
+    width: 50px;
+    border-radius: 4px;
+    border: 1px solid #dadada;
+    padding: 0 15px 0; 
+    margin: 0 10px 0 0;
+}
+
 .gross-other {
     height: 100px;
     box-sizing: border-box;
@@ -1029,6 +1042,10 @@ p.logo-text:hover {
 
 .wide-yy {
     width: 363px;
+}
+
+.widerr {
+    flex-basis: 50%;
 }
 
 .fle-def {
@@ -2253,6 +2270,39 @@ p.logo-text:hover {
     width: 100%;
 }
 
+.item-row-sm {
+    padding: 4px 0 4px 15px;
+    margin: 3px 10px 3px 0;
+    background: beige;
+    font-size: 0.84rem;
+    font-weight: 700;
+    width: 100%;
+    flex-basis: 20%
+}
+
+.bas20 {
+    flex-basis: 20%;
+}
+
+.bas80 {
+    flex-basis: 80%;
+}
+
+.df {
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+.item-row-bg {
+    padding: 4px 0 4px 15px;
+    margin: 3px 10px 3px 0;
+    background: beige;
+    font-size: 0.84rem;
+    font-weight: 700;
+    width: 100%;
+    flex-basis: 80%
+}
+
 .flex {
     display: flex;
     width: 100%;
@@ -2300,4 +2350,19 @@ p.logo-text:hover {
 
 .mar4 {
     margin: 4px 0;
+}
+
+.marff {
+    margin: 10px 0;
+}
+
+.tabb {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.84rem;
+    margin: 0 10px 0 0;
+}
+
+.se-active {
+    color: #059477;
 }

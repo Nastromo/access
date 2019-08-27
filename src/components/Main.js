@@ -39,6 +39,9 @@ import {
     delIns,
     addWar,
     delWar,
+    changeTab,
+    changeSpecQty,
+    changeWarCom,
 } from '../store/actions/Acc';
 import SearchInput from './SearchInput';
 import NewDropDown from './NewDropDown';
@@ -162,11 +165,16 @@ export class Main extends Component {
         return list.map((item, i) => {
             return (
                 <div key={i} className="flex">
-                    <div className="item-row">{item}</div>
+                    <div className="item-row bas80">{item.code}</div>
+                    <input className="simple-input-row" id={i} value={item.qty} onChange={this.changeSpecQty} />
                     <div onClick={this.delSpec} id={i} className="delete-sml"></div>
                 </div>
             )
         });
+    }
+
+    changeSpecQty = (e) => {
+        this.props.changeSpecQty(Number(e.target.id), e.target.value);
     }
 
     delSet = (e) => {
@@ -183,6 +191,28 @@ export class Main extends Component {
                 </div>
             )
         });
+    }
+
+    returnTests = () => {
+        const list = [{ code: "p5", description: "description" }, { code: "pzz", description: "description2 description2 description2" }, { code: "p5", description: "description" }, { code: "pzz", description: "description2 description2 description2" }, { code: "p5", description: "description" }, { code: "pzz", description: "description2 description2 description2" }, { code: "p5", description: "description" }, { code: "pzz", description: "description2 description2 description2" }];
+        return (
+            <div>
+                <div className="flex">
+                    <div className="bas20 df">Code</div>
+                    <div className="bas80 df">Description</div>
+                </div>
+                {
+                    list.map((item, i) => {
+                        return (
+                            <div key={i} className="flex">
+                                <div className="item-row-sm">{item.code}</div>
+                                <div className="item-row-bg">{item.description}</div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        )
     }
 
     render() {
@@ -354,8 +384,16 @@ export class Main extends Component {
                                             isLoading={this.props.isLoadSet}
                                             searchQuery={this.props.searchSet}
                                             searchResults={this.props.sets} />
+                                        <div className="flex marff">
+                                            <p
+                                                className={this.props.isSets ? "tabb mar-ri-gg se-active" : "tabb mar-ri-gg"}
+                                                onClick={this.changeTab}>Sets</p>
+                                            <p
+                                                className={this.props.isSets ? "tabb" : "tabb se-active"}
+                                                onClick={this.changeTab}>Tests</p>
+                                        </div>
                                         <div className="over130px">
-                                            {this.returnSets()}
+                                            {this.props.isSets ? this.returnSets() : this.returnTests()}
                                         </div>
                                     </div>
                                 </div>
@@ -427,19 +465,16 @@ export class Main extends Component {
                     </div>
                 </div>
                 <div className="derio">
-                    {/* <p className="tit-ins">Printer:</p>
-                    <div className="wi150px">
-                        <DropDown
-                            option={this.props.numbers}
-                            status={this.props.isNumbOpen}
-                            menu={this.numbers}
-                            id="numbers" />
-                    </div> */}
                     <input className="simple-input wi50re" type="text" defaultValue={2} />
                     <button onClick={this.props.createAccession} className="create-b">Create</button>
                 </div>
             </div>
         )
+    }
+
+    changeTab = () => {
+        console.log(111)
+        this.props.changeTab(this.props.isSets);
     }
 
     delWar = (e) => {
@@ -451,18 +486,25 @@ export class Main extends Component {
         return list.map((item, i) => {
             return (
                 <div key={i} className="flex">
-                    <div className="item-row">{item}</div>
+                    <div className="item-row bas40">{item.text}</div>
+                    <input className="simple-input-row widerr" id={i} value={item.comment} onChange={this.changeWarCom} />
                     <div onClick={this.delWar} className="delete-sml"></div>
                 </div>
             )
         });
     }
+
+    changeWarCom = (e) => {
+        this.props.changeWarCom(e.target.id, e.target.value);
+    }
 }
+
 
 const mapStateToProps = (state) => {
     const list = JSON.parse(state.acc.insurances ? state.acc.insurances : "[]");
 
     let stateToReturn = {
+        isSets: state.isSets,
         statew: state,
         date: state.dropdownOption.date,
         isDateOpen: state.dropdownStatus.date,
@@ -560,6 +602,9 @@ const mapDispatchToProps = dispatch => ({
     delIns: (index) => dispatch(delIns(index)),
     addWar: (text) => dispatch(addWar(text)),
     delWar: (index) => dispatch(delWar(index)),
+    changeTab: (bool) => dispatch(changeTab(bool)),
+    changeSpecQty: (index, value) => dispatch(changeSpecQty(index, value)),
+    changeWarCom: (i, text) => dispatch(changeWarCom(i, text))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)
