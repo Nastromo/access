@@ -83,6 +83,11 @@ export const acc = (state = {}, action) => {
             newState.dob = action.text;
             return newState;
 
+        case `CHANGE_COLD`:
+            newState = JSON.parse(JSON.stringify(state));
+            newState.cold = action.text;
+            return newState;
+
         case `CHANGE_CHART`:
             newState = JSON.parse(JSON.stringify(state));
             newState.patientChart = action.text;

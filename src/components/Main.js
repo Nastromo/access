@@ -42,6 +42,8 @@ import {
     changeTab,
     changeSpecQty,
     changeWarCom,
+    handleDeleteCold,
+    changeCold,
 } from '../store/actions/Acc';
 import SearchInput from './SearchInput';
 import NewDropDown from './NewDropDown';
@@ -72,18 +74,22 @@ export class Main extends Component {
         return list.map((item, i) => {
             return (
                 <div key={i} className="flex ju-space mar4">
-                    <p className="pad-ri-15">{item.companyName}</p>
-                    <NewDropDown
-                        id={`refToIns${i}`}
-                        actionType="SET_INS_DROP_OPTION"
-                        height="30px"
-                        status={this.props[`isInsOpen${i}`]}
-                        menu={this.rels}
-                        option={this.props[`ins${i}`]} />
+                    <p className="pad-ri-15 bas15">{item.companyName}</p>
+                    <div className="bas30 mar-rio-19">
+                        <NewDropDown
+                            id={`refToIns${i}`}
+                            actionType="SET_INS_DROP_OPTION"
+                            height="30px"
+                            status={this.props[`isInsOpen${i}`]}
+                            menu={this.rels}
+                            option={this.props[`ins${i}`]} />
+                    </div>
 
-                    <input className="sm-f" id={i} value={item.policy ? item.policy : ""} onChange={this.props.handlePolicy} />
+                    <input className="sm-f her30 bas35" id={i} value={item.policy ? item.policy : ""} onChange={this.props.handlePolicy} />
 
-                    <Checkbox status={this.props[`insCheckStatus${i}`]} id={`insCheck${i}`} />
+                    <div className="bas15 amr-let-20">
+                        <Checkbox status={this.props[`insCheckStatus${i}`]} id={`insCheck${i}`} />
+                    </div>
 
                     <div onClick={this.props.delIns} id={i} className="delete-sml"></div>
                 </div>
@@ -108,10 +114,10 @@ export class Main extends Component {
                             searchResults={this.props.insurances} />
 
                         <div className="fle-gre-d">
-                            <p className="tit-ins">Name</p>
-                            <p className="tit-ins">Rel 2 Ins</p>
-                            <p className="tit-ins">Policy</p>
-                            <p className="tit-ins">Primary</p>
+                            <p className="tit-ins bas15">Name</p>
+                            <p className="tit-ins bas30">Rel 2 Ins</p>
+                            <p className="tit-ins bas35">Policy</p>
+                            <p className="tit-ins bas15">Primary</p>
                         </div>
                         <div>
                             {this.returnIns()}
@@ -216,7 +222,7 @@ export class Main extends Component {
     }
 
     render() {
-        // console.log(this.props.statew);
+        console.log(this.props.acc.cold);
         return (
             <div className="padd15">
                 <div className="fle-n-dd">
@@ -251,7 +257,10 @@ export class Main extends Component {
                         <div className="fle-n-dd">
                             <div className="gg ll">
                                 <p className="tit-ins">Col. Date</p>
-                                <div className="fl-date">
+                                <div>
+                                    <input className="simple-input sma-182 ma-ri-10" value={this.props.acc.cold ? this.props.acc.cold : ""} onKeyDown={this.props.handleDeleteCold} onChange={this.props.changeCold} />
+                                </div>
+                                {/* <div className="fl-date">
                                     <div id="fir-da" className="sma">
                                         <DropDown
                                             option={this.props.acc.colDate}
@@ -260,7 +269,7 @@ export class Main extends Component {
                                             id="date" />
                                     </div>
                                     <input className="simple-input sma" value={this.props.acc.time ? this.props.acc.time : ""} onChange={this.props.changeTime} onKeyDown={this.props.handleTimeDelete} placeholder="HH:mm" />
-                                </div>
+                                </div> */}
                             </div>
                             <div className="gg">
                                 <p className="tit-ins">Fasting</p>
@@ -288,7 +297,7 @@ export class Main extends Component {
                                 <p className="tit-ins">Electronic Order Number</p>
                                 <input className="simple-input kk302" value={this.props.acc.eon ? this.props.acc.eon : ""} onChange={this.props.changeEon} />
                             </div>
-                            <div>
+                            {/* <div>
                                 <p className="tit-ins">Order Type</p>
                                 <div id="fir-da" className="smagg">
                                     <DropDown
@@ -297,7 +306,7 @@ export class Main extends Component {
                                         menu={this.orderType}
                                         id="orderType" />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div>
@@ -578,6 +587,8 @@ const mapDispatchToProps = dispatch => ({
     changeLast: (e) => dispatch(changeLast(e)),
     changeMname: (e) => dispatch(changeMname(e)),
     changeDob: (e) => dispatch(changeDob(e)),
+    changeCold: (e) => dispatch(changeCold(e)),
+    handleDeleteCold: (e) => dispatch(handleDeleteCold(e)),
     changeChart: (e) => dispatch(changeChart(e)),
     changeSet: (e) => dispatch(changeSet(e)),
     changeStreet: (e) => dispatch(changeStreet(e)),

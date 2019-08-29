@@ -142,6 +142,11 @@ export const setDob = (text) => ({
     text
 });
 
+export const setCold = (text) => ({
+    type: 'CHANGE_COLD',
+    text
+});
+
 export const handleDelete = (e) => {
     return async (dispatch, getState) => {
         const dob = getState().acc.dob ? getState().acc.dob : "";
@@ -159,6 +164,26 @@ export const changeDob = (e) => {
             dob = dob + "/";
         }
         dispatch(setDob(dob));
+    }
+};
+
+export const changeCold = (e) => {
+    return async (dispatch, getState) => {
+        let dob = "";
+        dob = dob + e.target.value;
+        if (dob.length === 2 || dob.length === 5) {
+            dob = dob + "/";
+        }
+        dispatch(setCold(dob));
+    }
+};
+
+export const handleDeleteCold = (e) => {
+    return async (dispatch, getState) => {
+        const cold = getState().acc.cold ? getState().acc.cold : "";
+        if ((e.keyCode === 8 && cold.length === 6) || (e.keyCode === 8 && cold.length === 3)) {
+            dispatch(setCold(cold.slice(0, -1)));
+        }
     }
 };
 
