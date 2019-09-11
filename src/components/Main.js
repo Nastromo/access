@@ -455,6 +455,8 @@ export class Main extends Component {
                                             onChange={this.props.handleAddInfo}
                                         ></textarea>
 
+                                        {this.returnBillTo(this.props.acc.billTo)}
+
                                         <p className="tit-ins mar-to">WARNINGS</p>
                                         <SearchInput
                                             id="warnings"
@@ -468,7 +470,7 @@ export class Main extends Component {
                                         {this.returnWarnings()}
                                     </div>
                                 </div>
-                                {this.returnBillTo(this.props.acc.billTo)}
+                                
                             </div>
                         </div>
                     </div>
