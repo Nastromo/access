@@ -225,6 +225,12 @@ export class Main extends Component {
         console.log(this.props.acc.cold);
         return (
             <div className="padd15">
+                <p className="side-t maed">Electronic Order</p>
+                <div className="flex elect">
+                    <input className="simple-input sma-182 ma-ri-10" />
+                    <div className="green-btn dfg">Find</div>
+                </div>
+
                 <div className="fle-n-dd">
                     <div>
                         <p className="side-t">Client Details</p>
@@ -470,7 +476,7 @@ export class Main extends Component {
                                         {this.returnWarnings()}
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
