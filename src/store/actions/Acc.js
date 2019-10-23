@@ -311,10 +311,28 @@ export const delWar = (index) => ({
     index
 });
 
-export const addSet = (text) => ({
+export const setSet = (text) => ({
     type: 'ADD_SET',
     text
 });
+
+export const setTests = (list) => ({
+    type: 'SET_TETST',
+    list
+});
+
+export const addSet = (text) => {
+    return async (dispatch, getState) => {
+        try {
+            const arr = text.split(` | `);
+            const res = await API.get(`/v1/get-tests?id=${arr[0]}`);
+            dispatch(setSet(text));
+            dispatch(setTests(res.data));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
 
 export const createAccession = () => {
     return async (dispatch, getState) => {

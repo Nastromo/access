@@ -202,7 +202,6 @@ export class Main extends Component {
     }
 
     returnTests = () => {
-        const list = [{ code: "p5", description: "description" }, { code: "pzz", description: "description2 description2 description2" }, { code: "p5", description: "description" }, { code: "pzz", description: "description2 description2 description2" }, { code: "p5", description: "description" }, { code: "pzz", description: "description2 description2 description2" }, { code: "p5", description: "description" }, { code: "pzz", description: "description2 description2 description2" }];
         return (
             <div>
                 <div className="flex">
@@ -210,7 +209,7 @@ export class Main extends Component {
                     <div className="bas80 df">Description</div>
                 </div>
                 {
-                    list.map((item, i) => {
+                    this.props.tests.map((item, i) => {
                         return (
                             <div key={i} className="flex">
                                 <div className="item-row-sm">{item.code}</div>
@@ -493,7 +492,6 @@ export class Main extends Component {
     }
 
     changeTab = () => {
-        console.log(111)
         this.props.changeTab(this.props.isSets);
     }
 
@@ -524,6 +522,7 @@ const mapStateToProps = (state) => {
     const list = JSON.parse(state.acc.insurances ? state.acc.insurances : "[]");
 
     let stateToReturn = {
+        tests: state.acc.tests,
         isSets: state.isSets,
         statew: state,
         date: state.dropdownOption.date,

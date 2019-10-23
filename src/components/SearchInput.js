@@ -37,7 +37,7 @@ export class SearchInput extends Component {
                     });
                     this.props.itemClick({
                         id: this.props.id,
-                        text: this.props.searchResults[this.props.activeRow],
+                        text: "",
                     });
                 } else if (this.props.id === `warnings`) {
                     this.props.onItemClick({
@@ -46,7 +46,7 @@ export class SearchInput extends Component {
                     });
                     this.props.itemClick({
                         id: this.props.id,
-                        text: this.props.searchResults[this.props.activeRow],
+                        text: "",
                     });
                 } else if (this.props.id === `locations`) {
                     this.props.onItemClick(this.props.searchResults[this.props.activeRow]);
@@ -56,7 +56,7 @@ export class SearchInput extends Component {
                     this.props.onItemClick(this.props.searchResults[this.props.activeRow]);
                     this.props.itemClick({
                         id: this.props.id,
-                        text: this.props.searchResults[this.props.activeRow],
+                        text: "",
                     });
                 }
             } else {

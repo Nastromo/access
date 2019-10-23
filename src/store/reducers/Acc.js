@@ -1,5 +1,13 @@
 import moment from 'moment';
 
+
+const getUnique = (arr, comp) => {
+    const unique = arr.map(e => e[comp])
+        .map((e, i, final) => final.indexOf(e) === i && i)
+        .filter(e => arr[e]).map(e => arr[e]);
+    return unique;
+}
+
 export const acc = (state = {}, action) => {
     let newState, diags, list;
     switch (action.type) {
@@ -26,6 +34,13 @@ export const acc = (state = {}, action) => {
         case `CHANGE_BILL_STR`:
             newState = JSON.parse(JSON.stringify(state));
             newState.billingStreets = action.text;
+            return newState;
+
+        case `SET_TETST`:
+            newState = JSON.parse(JSON.stringify(state));
+            const result = action.list.concat(newState.tests || []);
+            const unq = getUnique(result, `code`);
+            newState.tests = unq;
             return newState;
 
         case `CHANGE_BILL_CITY`:
