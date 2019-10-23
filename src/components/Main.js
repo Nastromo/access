@@ -44,6 +44,8 @@ import {
     changeWarCom,
     handleDeleteCold,
     changeCold,
+    changeSetLocId,
+    changeSetPhyId,
 } from '../store/actions/Acc';
 import SearchInput from './SearchInput';
 import NewDropDown from './NewDropDown';
@@ -222,7 +224,6 @@ export class Main extends Component {
     }
 
     render() {
-        console.log(this.props.acc.cold);
         return (
             <div className="padd15">
                 <p className="side-t maed">Electronic Order</p>
@@ -243,6 +244,7 @@ export class Main extends Component {
                             type="text"
                             view="search-input widkkk"
                             url="locations"
+                            onItemClick={this.props.changeSetLocId}
                             isLoading={this.props.isLoadLoc}
                             searchQuery={this.props.searchLoc}
                             searchResults={this.props.locations} />
@@ -256,6 +258,7 @@ export class Main extends Component {
                             type="text"
                             view="search-input widkkk"
                             url="physician"
+                            onItemClick={this.props.changeSetPhyId}
                             isLoading={this.props.isLoadPhy}
                             searchQuery={this.props.searchPhy}
                             searchResults={this.props.physician} />
@@ -623,7 +626,9 @@ const mapDispatchToProps = dispatch => ({
     delWar: (index) => dispatch(delWar(index)),
     changeTab: (bool) => dispatch(changeTab(bool)),
     changeSpecQty: (index, value) => dispatch(changeSpecQty(index, value)),
-    changeWarCom: (i, text) => dispatch(changeWarCom(i, text))
+    changeWarCom: (i, text) => dispatch(changeWarCom(i, text)),
+    changeSetLocId: (text) => dispatch(changeSetLocId(text)),
+    changeSetPhyId: (text) => dispatch(changeSetPhyId(text)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)

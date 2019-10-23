@@ -1,5 +1,6 @@
 import API from '../../utils/Api';
 import { showNotification } from '../actions/Notification';
+import { setQuery, setResults } from './SearchInput';
 
 
 export const changeIns = (e) => ({
@@ -31,6 +32,43 @@ export const changePhisId = (e) => ({
     type: 'CHANGE_PHIS_ID',
     text: e.target.value
 });
+
+
+export const changeSetLocId = (text) => {
+    return async (dispatch, getState) => {
+        try {
+            const arr = text.split(` | `);
+            dispatch(setQuery({
+                id: `locations`,
+                text: arr[0]
+            }));
+            dispatch(setResults({
+                id: `locations`,
+                list: []
+            }));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+export const changeSetPhyId = (text) => {
+    return async (dispatch, getState) => {
+        try {
+            const arr = text.split(` | `);
+            dispatch(setQuery({
+                id: `physician`,
+                text: arr[0]
+            }));
+            dispatch(setResults({
+                id: `physician`,
+                list: []
+            }));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
 
 export const changeSpecQty = (i, qty) => {
     return {

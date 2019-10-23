@@ -48,6 +48,10 @@ export class SearchInput extends Component {
                         id: this.props.id,
                         text: this.props.searchResults[this.props.activeRow],
                     });
+                } else if (this.props.id === `locations`) {
+                    this.props.onItemClick(this.props.searchResults[this.props.activeRow]);
+                } else if (this.props.id === `physician`) {
+                    this.props.onItemClick(this.props.searchResults[this.props.activeRow]);
                 } else {
                     this.props.onItemClick(this.props.searchResults[this.props.activeRow]);
                     this.props.itemClick({
@@ -76,10 +80,6 @@ export class SearchInput extends Component {
     }
 
     itemClick = (e) => {
-        this.props.itemClick({
-            id: this.props.id,
-            text: e.target.id,
-        });
         if (typeof this.props.onItemClick === "function") {
             if (this.props.id === `specimens`) {
                 this.props.onItemClick({
@@ -94,6 +94,11 @@ export class SearchInput extends Component {
             } else {
                 this.props.onItemClick(e.target.id);
             }
+        } else {
+            this.props.itemClick({
+                id: this.props.id,
+                text: e.target.id,
+            });
         }
     }
 
