@@ -341,6 +341,7 @@ export const createAccession = () => {
             const loc = getState().searchQuery.locations;
             const acc = getState().acc;
             const ins = getState().acc.insurances;
+            const tests = getState().acc.tests;
             const insurances = JSON.parse(ins ? ins : "[]");
             for (let i = 0; i < insurances.length; i++) {
                 insurances[i].rel2Ins = getState().newDDOption[`refToIns${i}`]
@@ -349,6 +350,7 @@ export const createAccession = () => {
             acc.insurances = JSON.stringify(insurances);
             acc.clientLocationId = loc;
             acc.physicianId = phy;
+            acc.tests = tests;
             await API.post(`/v1/create-accession`, acc);
             dispatch(showNotification(`Saved...`, `notification-show notification-green`));
             dispatch(setAcc({}));

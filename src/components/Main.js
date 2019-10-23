@@ -202,24 +202,26 @@ export class Main extends Component {
     }
 
     returnTests = () => {
-        return (
-            <div>
-                <div className="flex">
-                    <div className="bas20 df">Code</div>
-                    <div className="bas80 df">Description</div>
+        if (this.props.tests) {
+            return (
+                <div>
+                    <div className="flex">
+                        <div className="bas20 df">Code</div>
+                        <div className="bas80 df">Description</div>
+                    </div>
+                    {
+                        this.props.tests.map((item, i) => {
+                            return (
+                                <div key={i} className="flex">
+                                    <div className="item-row-sm">{item.code}</div>
+                                    <div className="item-row-bg">{item.description}</div>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
-                {
-                    this.props.tests.map((item, i) => {
-                        return (
-                            <div key={i} className="flex">
-                                <div className="item-row-sm">{item.code}</div>
-                                <div className="item-row-bg">{item.description}</div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        )
+            )
+        }
     }
 
     render() {
