@@ -16,13 +16,16 @@ export class CheckBox extends Component {
 
     render() {
         return (
-            <div onClick={this.handleClick} className= {this.props.status ? `check-box checked` : `check-box`}></div>
+            <div className="flex-hor">
+                <div onClick={this.handleClick} className={this.props.status ? `check-box checked` : `check-box`}></div>
+                <p>{this.props.title}</p>
+            </div>
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    
+
 })
 
 const mapDispatchToProps = (dispatch) => ({

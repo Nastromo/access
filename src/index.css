@@ -2417,3 +2417,69 @@ p.logo-text:hover {
 .maed {
     margin-bottom: 7px;
 }
+
+.main-div {
+    margin: 15px;
+    padding: 15px;
+    border: 1px solid #dadada;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.grn-btn {
+    background: #16ad8f;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 3px;
+    height: 30px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+.jgyt {
+    margin: 0 0 0 10px;
+}
+
+.fdfr {
+    margin: 15px 0 0 0;
+}
+
+.dfrt {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: rgb(80, 80, 80);
+}
+
+.sert {
+    margin: 0 15px 0 0;
+}
+
+.fgtgt {
+    margin: 15px 0 0 0;
+}
+
+.fvbbb {
+    margin: 0 50px 0 0;
+}
+
+.grey-btn {
+    background: #dfdfdf;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 3px;
+    height: 30px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+.dfdfd {
+    margin: 15px 0 0 0;
+}

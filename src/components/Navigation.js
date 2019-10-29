@@ -20,6 +20,9 @@ export class Navigation extends Component {
             case `/account/labels`:
                 this.setActive(this.processing);
                 break;
+            case `/account/efunc`:
+                this.setActive(this.efunc);
+                break;
             default: break;
         }
     }
@@ -31,6 +34,9 @@ export class Navigation extends Component {
                 break;
             case `option2`:
                 this.setActive(this.processing);
+                break;
+            case `option3`:
+                this.setActive(this.efunc);
                 break;
             default: break;
         }
@@ -46,7 +52,7 @@ export class Navigation extends Component {
                 <div className="main-nav">
                     <div className="main-categories">
                         <p className="logo-text">Accessioning</p>
-                        <Link
+                        {/* <Link
                             id="option1"
                             onClick={this.handleClick}
                             innerRef={el => this.pending = el}
@@ -56,7 +62,13 @@ export class Navigation extends Component {
                             id="option2"
                             onClick={this.handleClick}
                             innerRef={el => this.processing = el}
-                            to="/account/labels">Labels</Link>
+                            to="/account/labels">Labels</Link> */}
+                        <Link
+                            id="option3"
+                            className="menu-active"
+                            onClick={this.handleClick}
+                            innerRef={el => this.efunc = el}
+                            to="/account/efunc">E-func</Link>
                     </div>
 
                     <div className="work-info">
@@ -69,12 +81,12 @@ export class Navigation extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    
+
 
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Navigation))
