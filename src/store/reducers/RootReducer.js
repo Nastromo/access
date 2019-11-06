@@ -7,10 +7,12 @@ import { searchQuery, searchLoading, searchResults, activeRow } from '../reducer
 import { newDDStatus, newDDOption } from '../reducers/NewDropDown';
 import { checkbox } from './CheckBox';
 import { isSets } from './Tab';
+import { eacc } from './Efunc';
 
 
 
 const RootReducer = combineReducers({
+    eacc,
     isSets,
     checkbox,
     newDDStatus,

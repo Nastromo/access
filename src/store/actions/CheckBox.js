@@ -24,6 +24,24 @@ export const check = (obj) => {
                 obj
             }
 
+        case `weight`:
+            return {
+                type: 'CHECK_BOX_SET',
+                obj
+            }
+
+        case `nutr`:
+            return {
+                type: 'CHECK_BOX_SET',
+                obj
+            }
+
+        case `telo`:
+            return {
+                type: 'CHECK_BOX_SET',
+                obj
+            }
+
         default: return ({
             type: 'CHECK_BOX',
             obj
