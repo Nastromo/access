@@ -78,3 +78,22 @@ export const clear = () => {
     }
 }
 
+export const setEaccs = (list) => ({
+    type: 'SET_EACCS_LIST',
+    list
+});
+
+export const getEacc = (name) => {
+    return async (dispatch, getState) => {
+        try {
+            const barCode = getState().eacc.barCode;
+            const res = await API.get(`/v1/get-eacc?barCode=${barCode}`);
+            if (res.data) dispatch(setAcc(res.data));
+            else throw new Error(`No such barcode`);
+        } catch (err) {
+            dispatch(showNotification(`No such barcode...`, `notification-show`));
+            console.log(err);
+        }
+    }
+}
+

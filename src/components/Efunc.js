@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import NewDropDown from './NewDropDown';
 import Checkbox from './Checkbox';
-import { changeFirstName, changeLastName, changeDob, changePhone, changeStreet, changeCity, changeState, changeZip, changeBarcode, clear, submitEAcc } from '../store/actions/Efunc';
-
+import { changeFirstName, changeLastName, changeDob, changePhone, changeStreet, changeCity, changeState, changeZip, changeBarcode, clear, submitEAcc, getEacc } from '../store/actions/Efunc';
+// import SearchInput from './SearchInput';
 
 
 
@@ -19,7 +19,16 @@ export class Efunc extends Component {
                 <h3>Enter Barcode:</h3>
                 <div className="flex">
                     <input type="number" onChange={this.props.changeBarcode} value={this.props.acc.barCode ? this.props.acc.barCode : ""} className="simple-input" />
-                    <div className="grn-btn jgyt">OK</div>
+                    {/* <SearchInput
+                        id="barCode"
+                        type="text"
+                        view="search-input"
+                        url="e-accession"
+                        onItemClick={this.props.getEAcc}
+                        isLoading={this.props.isLoadEacc}
+                        searchQuery={this.props.searchEacc}
+                        searchResults={this.props.eaccs} /> */}
+                    <div onClick={this.props.getEacc} className="grn-btn jgyt">OK</div>
                 </div>
 
                 <h3 className="fdfr">Patient Info:</h3>
@@ -60,13 +69,13 @@ export class Efunc extends Component {
 
                 <div className="flex fgtgt">
                     <div className="fvbbb">
-                        <Checkbox status={this.props.acc.testType === `Weight Management` ? 1 : 0 } title="Weight Management" id="weight" />
+                        <Checkbox status={this.props.acc.testType === `Weight Management` ? 1 : 0} title="Weight Management" id="weight" />
                     </div>
                     <div className="fvbbb">
-                        <Checkbox status={this.props.acc.testType === `Nutritional Deficiency` ? 1 : 0 } title="Nutritional Deficiency" id="nutr" />
+                        <Checkbox status={this.props.acc.testType === `Nutritional Deficiency` ? 1 : 0} title="Nutritional Deficiency" id="nutr" />
                     </div>
                     <div className="fvbbb">
-                        <Checkbox status={this.props.acc.testType === `Telomers` ? 1 : 0 } title="Telomers" id="telo" />
+                        <Checkbox status={this.props.acc.testType === `Telomers` ? 1 : 0} title="Telomers" id="telo" />
                     </div>
                 </div>
 
@@ -82,6 +91,9 @@ export class Efunc extends Component {
 const mapStateToProps = (state) => ({
     acc: state.eacc,
     isOpenGen: state.newDDStatus.genderefunc,
+    isLoadEacc: state.searchLoading.barCode,
+    searchEacc: state.searchQuery.barCode,
+    eaccs: state.searchResults.barCode,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -89,13 +101,14 @@ const mapDispatchToProps = dispatch => ({
     changeLastName: e => dispatch(changeLastName(e)),
     changeDob: e => dispatch(changeDob(e)),
     changePhone: e => dispatch(changePhone(e)),
-    changeStreet: e => dispatch(changeStreet(e)), 
+    changeStreet: e => dispatch(changeStreet(e)),
     changeCity: e => dispatch(changeCity(e)),
     changeState: e => dispatch(changeState(e)),
     changeZip: e => dispatch(changeZip(e)),
     changeBarcode: e => dispatch(changeBarcode(e)),
     clear: () => dispatch(clear()),
     submitEAcc: () => dispatch(submitEAcc()),
+    getEacc: (barCode) => dispatch(getEacc(barCode)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Efunc)

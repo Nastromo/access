@@ -1,4 +1,11 @@
-
+export const eaccs = (state = [], action) => {
+    switch (action.type) {
+        case `SET_EACCS_LIST`:
+            return action.list;
+ 
+        default: return state;
+    }
+}
 
 export const eacc = (state = {}, action) => {
     let newState;
